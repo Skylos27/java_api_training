@@ -4,16 +4,33 @@ import org.junit.jupiter.api.Assertions;
 
 class LauncherTest {
     @org.junit.jupiter.api.Test
-    void launcherArgsFail() {
-
-        String[] args = {};
+    void launcherArgsOk() {
+        String[] args = {"555"};
         Assertions.assertDoesNotThrow(() -> Launcher.main(args));
-
-        String[] args2 = {"toto"};
-        Assertions.assertDoesNotThrow(() -> Launcher.main(args2));
-
-        String[] args3 = {"525", "toto"};
-        Assertions.assertDoesNotThrow(() -> Launcher.main(args3));
-
     }
+
+    @org.junit.jupiter.api.Test
+    void launcherArgsFails() {
+        String[] args1 = {};
+
+        Assertions.assertThrows(
+                NullPointerException.class,
+                () -> Launcher.main(args1)
+        );}
+    @org.junit.jupiter.api.Test
+    void launcherArgsFailsLetter() {
+        String[] args1 = {"toto"};
+
+        Assertions.assertThrows(
+                NumberFormatException.class,
+                () -> Launcher.main(args1)
+        );}
+    @org.junit.jupiter.api.Test
+    void launcherArgsFailsManyArg() {
+        String[] args1 = {"5555","5555"};
+
+        Assertions.assertThrows(
+                NullPointerException.class,
+                () -> Launcher.main(args1)
+        );}
 }

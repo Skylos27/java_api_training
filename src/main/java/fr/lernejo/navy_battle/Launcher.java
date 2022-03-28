@@ -12,11 +12,11 @@ public class Launcher {
         try {
             if (args.length != 1) {
                 System.err.println("Usage: Launcher [port]");
-                System.exit(-1);
+                throw new NullPointerException("Usage: Launcher [port]");
             }
 
             int port = Integer.parseInt(args[0]);
-            System.out.println("Début de l'écoude de  http://localhost:" + port + "/");
+            System.out.println("Début de l'écoute de  http://localhost:" + port + "/");
 
             startServer(port);
 
