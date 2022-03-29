@@ -25,10 +25,10 @@ class LauncherTest {
                 NumberFormatException.class,
                 () -> Launcher.main(args1)
         );}
-    @org.junit.jupiter.api.Test
-    void launcherArgsFailsManyArg() {
-        String[] args1 = {"5555","5555"};
-
-        Assertions.assertDoesNotThrow(() -> Launcher.main(args1));
-    }
+    //@org.junit.jupiter.api.Test
+    //void launcherArgsFailsManyArg() {
+    //    String[] args1 = {"5555","555"};
+//
+    //    Assertions.assertDoesNotThrow(() -> Launcher.main(args1));
+    //}
 }
