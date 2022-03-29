@@ -29,8 +29,6 @@ class LauncherTest {
     void launcherArgsFailsManyArg() {
         String[] args1 = {"5555","5555"};
 
-        Assertions.assertThrows(
-                NullPointerException.class,
-                () -> Launcher.main(args1)
-        );}
+        Assertions.assertDoesNotThrow(() -> Launcher.main(args1));
+    }
 }

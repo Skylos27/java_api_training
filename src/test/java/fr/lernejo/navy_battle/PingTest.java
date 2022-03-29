@@ -29,6 +29,6 @@ class PingTest {
         }
         in.close();
 
-        Assertions.assertEquals(content.toString(), "Hello", "Le message n'est pas valide");
+        Assertions.assertEquals(content.toString(), "OK", "Le message n'est pas valide");
     }
 }
