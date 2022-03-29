@@ -15,27 +15,6 @@ public class RequestHandler{
         this.exchange = exchange;
     }
 
-    public String readToString() throws IOException
-    {
-        return new String(this.exchange.getRequestBody().readAllBytes());
-    }
-
-    public JSONObject getJSONObject() throws IOException
-    {
-        try {
-            String requestBody = readToString();
-            if(requestBody.isEmpty())
-            {
-                return new JSONObject();
-            }
-
-            return new JSONObject(requestBody);
-        } catch (JSONException e) {
-            sendString(400, e.toString());
-            throw new JSONException(e);
-        }
-    }
-
     public void sendString(int status, String test) throws IOException
     {
         byte[] bytes = test.getBytes();

@@ -12,7 +12,6 @@ import java.util.concurrent.Executors;
 public class Launcher {
 
     private final ServerParser localServer;
-    private final ServerParser remoteServer;
 
     public Launcher(int port) {
         localServer = new ServerParser(
@@ -20,7 +19,6 @@ public class Launcher {
                 "http://localhost:" + port,
                 "Server started"
         );
-        remoteServer = null;
     }
 
     public static void main(String[] args) {
@@ -60,11 +58,6 @@ public class Launcher {
 
     public void startGame(RequestHandler handler) throws IOException {
         try {
-            if (remoteServer != null) {
-                handler.sendString(400, "Server full");
-                return;
-            }
-
             handler.sendJSON(202, localServer.toJSON());
 
         } catch (Exception e) {
