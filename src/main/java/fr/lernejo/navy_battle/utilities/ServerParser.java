@@ -7,7 +7,6 @@ public class ServerParser {
     private final String id;
     private final String url;
     private final String message;
-
     public ServerParser(String id, String url, String message) {
         this.id = id;
         this.url = url;
