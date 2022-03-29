@@ -6,17 +6,22 @@ import fr.lernejo.navy_battle.utilities.*;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.util.UUID;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class Launcher {
 
-    private ServerParser localServer;
-    private ServerParser remoteServer;
+    private final ServerParser localServer;
+    private final ServerParser remoteServer;
+
+    public Launcher(int port) {
+        localServer = new ServerParser(
+                UUID.randomUUID().toString(),
+                "http://localhost:" + port,
+                "Server started"
+        );
+        remoteServer = null;
+    }
 
     public static void main(String[] args) {
         try {
@@ -28,7 +33,7 @@ public class Launcher {
             int serverPort = Integer.parseInt(args[0]);
             System.out.println("Listen port "  + serverPort);
 
-            new Launcher().startServer(serverPort, args.length > 1 ? args[1] : null);
+            new Launcher(serverPort).startServer(serverPort, args.length > 1 ? args[1] : null);
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
@@ -36,11 +41,6 @@ public class Launcher {
     }
 
     private void startServer(int port, String connectURL) throws IOException, InterruptedException {
-        localServer = new ServerParser(
-                UUID.randomUUID().toString(),
-                "http://localhost:" + port,
-                "Server started"
-        );
         HttpServer new_server = HttpServer.create(new InetSocketAddress(port), 0);
         new_server.setExecutor(Executors.newSingleThreadExecutor());
         new_server.createContext("/ping", this::handlePing);
@@ -64,8 +64,6 @@ public class Launcher {
                 handler.sendString(400, "Server full");
                 return;
             }
-            System.out.println(handler.getJSONObject());
-            //remoteServer = ServerParser.fromJSON(handler.getJSONObject());
 
             handler.sendJSON(202, localServer.toJSON());
 
